@@ -1,11 +1,11 @@
-from mahjong.suit import Suit
+from mahjong.suit import Suit, SuitEnum
+from typing import List
+from dataclasses import dataclass, field
 
+@dataclass(order=True)
 class Tile:
-    def __init__(self,
-                 suit: Suit,
-                 number: int) -> None:
-        self.suit = suit
-        self.number = number
-
-    def __str__(self):
-        return f"{self.number}{self.suit}"
+    suit: Suit = field(compare=False)
+    number: int = field(compare=True)
+    
+    # def __str__(self):
+    #     return f"{self.number}{self.suit}"
