@@ -1,5 +1,4 @@
-from mahjong.suit import Suit, SuitEnum
-from typing import List
+from mahjong.suit import Suit
 from dataclasses import dataclass, field
 
 @dataclass(order=True)

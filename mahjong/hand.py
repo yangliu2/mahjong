@@ -1,4 +1,3 @@
-from tokenize import group
 from typing import List, Dict
 from mahjong.tile import Tile
 from mahjong.rules import Rules
@@ -11,17 +10,38 @@ from dataclasses import dataclass
 @dataclass
 class Hand:
     raw_tiles: str
+    split_interval: int = 2
 
     def __post_init__(self) -> None:
+        """Parse the raw tiles input from string to Tile object
+        """
+        # split the raw input every split interval length for the shortest input
+        # e.g. 1w2b -> [1w, 2b]
+        raw_tiles = [self.raw_tiles[i:i + self.split_interval]
+                     for i in range(0, 
+                                    len(self.raw_tiles), 
+                                    self.split_interval)]
+        
         self.tiles = [Tile(suit=x[1], number=int(x[0]))
-                      for x in self.raw_tiles]
+                      for x in raw_tiles]
 
-    def check_hand(self,
-                   rules: Rules):
+    def is_valid_hand(self,
+                      rules: Rules) -> bool:
+        """Check if the hand is valid according to the given rule
+
+        Args:
+            rules (Rules): Rules object with predetermined rules
+
+        Returns:
+            bool: return whether the hand is valid
+        """
         # Check total tile count
         if len(self.tiles) != rules.hand_count:
             print("Hand count does not match the rules. Did you forget to "
                   "draw?")
+            return False
+        else:
+            return True
 
     @staticmethod
     def group_by_suit(hand: List[Tile]) -> Dict[str, List[Tile]]:
@@ -42,7 +62,17 @@ class Hand:
         return group_dict
 
     def breakdown_groups(self) -> List[Group]:
+        """Generate groups from the hand
+        
+        Args (self):
+            self.tiles: List of Tiles objects
+
+        Returns:
+            List[Group]: a list of groups than can be used to find best tiles
+            to draw
+        """
         group_dict = self.group_by_suit(self.tiles)
-        parts_maker = GroupMaker(group_dict=group_dict)
-        parts = parts_maker.make_groups()
-        print(parts)
+        group_maker = GroupMaker(group_dict=group_dict)
+        groups = group_maker.make_groups()
+        
+        return groups

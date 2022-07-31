@@ -3,17 +3,11 @@ from mahjong.hand import Hand
 from mahjong.group import Group
 
 
-def recognize_hand(raw_hand: str,
-                   split_interval: int = 2):
+def recognize_hand(raw_hand: str):
     """ Parse the raw hand input into hand object """
 
-    # split the raw input every split interval length for the shortest input
-    # e.g. 1w2b -> [1w, 2b]
-    raw_tiles = [raw_hand[i:i + split_interval]
-                 for i in range(0, len(raw_hand), split_interval)]
-
     # create hand based on the input list
-    hand = Hand(raw_tiles=raw_tiles)
+    hand = Hand(raw_tiles=raw_hand)
     hand.breakdown_groups()
 
 
