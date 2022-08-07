@@ -19,7 +19,6 @@ class TestHand(unittest.TestCase):
                             Tile('t', 9)],
                       'b': [Tile('b', 4)]}
         cls.group_maker = GroupMaker(group_dict=group_dict)
-        
 
     def test_find_friends_1w(self):
         tile = Tile('w', 1)
@@ -82,7 +81,7 @@ class TestHand(unittest.TestCase):
                     Group([Tile('w', 7),
                            Tile('w', 9),
                            Tile('w', 9)])]
-        
+
         self.assertEqual(actual, expected)
 
     def test_group_suit_2(self):
@@ -106,7 +105,7 @@ class TestHand(unittest.TestCase):
                            Tile('b', 9)])]
 
         self.assertEqual(actual, expected)
-        
+
     def test_make_groups(self):
         actual = self.group_maker.make_groups()
         expected = [Group([Tile('w', 3),
@@ -121,6 +120,7 @@ class TestHand(unittest.TestCase):
                            Tile('b', 9)]),
                     Group([Tile('t', 4)])]
         self.assertEqual(actual, expected)
+
 
 if __name__ == '__main__':
     unittest.main()

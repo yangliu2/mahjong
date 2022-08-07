@@ -20,3 +20,10 @@ https://betterprogramming.pub/python-data-classes-196496c32d75
 
 unittest basics  
 https://www.pythontutorial.net/python-unit-testing/python-run-unittest/
+
+other python packages for mahjong  
+https://github.com/Kenny2github/mahjong/wiki
+
+Unicode mahjong characters  
+https://zh.wikipedia.org/wiki/%E9%BA%BB%E5%B0%87%E7%89%8C_(Unicode%E5%8D%80%E6%AE%B5)  
+https://unicode-table.com/en/1F000/  
