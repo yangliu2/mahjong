@@ -14,6 +14,12 @@ f - 风（按'东南西北中发白'的顺序）
 h - 花牌 (按'春夏秋冬梅兰竹菊'的顺序)  
 For example, 1w is 一万. 2f is 南风. 4h is 冬.
 
+# Tasks
+* Basic objects for tiles and suit
+* Group tiles so the we know what tiles can complete a set
+* Recognize complicated sets. e.g. group of more than 2. 1) aab, 2) abcd, 3) abcde, 4) ace, 5) abde, 6) aabbc
+* Suggest the best tile to discard
+
 # resources
 dataclass basics  
 https://betterprogramming.pub/python-data-classes-196496c32d75

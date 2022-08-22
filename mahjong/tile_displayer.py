@@ -1,11 +1,11 @@
-from mahjong.suit import Suit, SuitEnum
-from dataclasses import dataclass, field
+from mahjong.suit import Suit
+from dataclasses import dataclass
 
 
 @dataclass(order=True)
-class Tile:
-    suit: Suit = field(compare=False)
-    number: int = field(compare=True)
+class TileDisplayer:
+    suit: Suit
+    number: int
 
     @staticmethod
     def increment_hex(unicode_str: str,

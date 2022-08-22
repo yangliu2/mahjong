@@ -1,3 +1,4 @@
+""" Group tiles together to make sense of it """
 from mahjong.tile import Tile
 from typing import List
 from mahjong.suit import SuitEnum
