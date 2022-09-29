@@ -1,8 +1,9 @@
+""" Basic unit in Mahjong """
 from mahjong.suit import Suit, SuitEnum
 from dataclasses import dataclass, field
 
 
-@dataclass(order=True)
+@dataclass(order=True, unsafe_hash=True)
 class Tile:
     suit: Suit = field(compare=False)
     number: int = field(compare=True)

@@ -4,7 +4,7 @@ from mahjong.group import Group
 from mahjong.group_maker import GroupMaker
 
 
-class TestHand(unittest.TestCase):
+class TestGroupMaker(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         group_dict = {'w': [Tile('w', 9),
@@ -119,6 +119,28 @@ class TestHand(unittest.TestCase):
                     Group([Tile('b', 7),
                            Tile('b', 9)]),
                     Group([Tile('t', 4)])]
+        self.assertEqual(actual, expected)
+
+    def test_pick_sets_straight(self):
+        first_tile = Tile(suit='w', number=1)
+        first_tile_friends = [Tile(suit='w', number=1),
+                              Tile(suit='w', number=2),
+                              Tile(suit='w', number=3)]
+        groups = []
+        sorted_tiles = [Tile(suit='w', number=2),
+                        Tile(suit='w', number=2),
+                        Tile(suit='w', number=3)]
+
+        actual = GroupMaker.pick_sets(first_tile=first_tile,
+                                      first_tile_friends=first_tile_friends,
+                                      groups=groups,
+                                      sorted_tiles=sorted_tiles)
+        expected_groups = [Group([Tile(suit='w', number=1),
+                                 Tile(suit='w', number=2),
+                                 Tile(suit='w', number=3)])]
+        expected_sorted_tiles = [Tile(suit='w', number=2)]
+        expected = expected_groups, expected_sorted_tiles
+
         self.assertEqual(actual, expected)
 
 

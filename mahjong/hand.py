@@ -1,3 +1,4 @@
+""" The tiles each player has """
 from typing import List, Dict
 from mahjong.tile import Tile
 from mahjong.rules import Rules

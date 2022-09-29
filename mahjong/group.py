@@ -60,9 +60,12 @@ class Group:
 
         return complement_tiles
 
+
     def complete_set(self) -> List[Tile]:
         """ Find the tile that would complete the set for the parts """
 
+        complement_tiles = []
+        
         if len(self.tiles) == 2:
             complement_tiles = self.complete_2_parts()
         # For parts that doesn't work with anything else, return empty
@@ -70,6 +73,7 @@ class Group:
             return []
         # Return more possibilites with 3 member parts
         elif len(self.tiles) > 2:
+            # TODO: What find the complements for longer than 2 groups 
             pass
 
         return complement_tiles

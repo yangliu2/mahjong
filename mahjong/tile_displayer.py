@@ -1,3 +1,4 @@
+""" Find the best way to display tile in command line """
 from mahjong.suit import Suit
 from dataclasses import dataclass
 

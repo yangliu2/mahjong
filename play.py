@@ -8,8 +8,16 @@ def recognize_hand(raw_hand: str):
 
     # create hand based on the input list
     hand = Hand(raw_tiles=raw_hand)
-    hand.breakdown_groups()
-
+    
+    # Create groups and display
+    groups = hand.breakdown_groups()
+    [print(x) for x in groups]
+    
+    # Find the tiles that can complete each group
+    complements = [x.complete_set() for x in groups]
+    flattened_complements = [x for sub in complements for x in sub]
+    [print(x) for x in flattened_complements]
+    
 
 def play():
     raw_hand = input("Please start by entering the hand you have: \n")
@@ -18,7 +26,7 @@ def play():
 
 def check_set():
     """ Find the tile that will complete the part of set """
-    tiles = [Tile('f', 1), Tile('f', 1)]
+    tiles = [Tile('f', 1), Tile('f', 1), Tile('f', 1)]
     parts = Group(tiles)
     complements = parts.complete_set()
     [print(x) for x in complements]
