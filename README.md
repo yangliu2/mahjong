@@ -1,5 +1,5 @@
 # mahjong
-Playing the game of Mahjong
+Playing the game of Mahjong. The purpose of this package is to train a player to play the most efficient way. This is achieved by calculating which tile to discard to have the highest probability of Hu or win. Also consider whether you should take actions like 'pong', 'chow', 'kong'. 
 
 # Start
 `play.py` to start playing the game
