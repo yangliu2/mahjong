@@ -58,18 +58,28 @@ class GroupMaker:
                   first_tile_friends: List[Tile],
                   groups: List,
                   sorted_tiles: List[Tile]) -> Tuple[List[Group], List[Tile]]:
-        
-        print(f"first_tile {first_tile}, sorted_tiles {sorted_tiles}")
-        
+        """ Pick out sets of tiles because they are often grouped first 
+
+        Args:
+            first_tile (Tile): first tile in the set
+            first_tile_friends (List[Tile]): what are the tiles that can make
+            sets with the first tile
+            groups (List): groups after checking for sets
+            sorted_tiles (List[Tile]): Sorted sets for grouping sets
+
+        Returns:
+            Tuple[List[Group], List[Tile]]: return groups, and sorted tiles
+        """
         # Add first tile back to the first position
         original_tiles = deepcopy(sorted_tiles)
         original_tiles.insert(0, first_tile)
         
         # if 'abc' forms a set
+        # if orignal tiles is a subset of first_tile_friends
         if all(x in first_tile_friends for x in original_tiles):
             group = Group(tiles=first_tile_friends)
             # remove from sorted_tiles
-            [sorted_tiles.remove(x) for x in first_tile_friends]
+            [original_tiles.remove(x) for x in first_tile_friends]
             groups.append(group)
         
         # if 'aaa' forms a set
@@ -78,19 +88,19 @@ class GroupMaker:
             if counter[first_tile] >= 3:
                 group = Group(tiles=[first_tile * 3])
                 # remove from sorted_tiles
-                [sorted_tiles.pop(0) for x in range(3)]
+                [original_tiles.pop(0) for x in range(3)]
                 groups.append(group)
 
-        print(f"sorted_tiles: {sorted_tiles} \n groups: {original_tiles}")
+        print(f"original_tiles: {sorted_tiles} \n groups: {original_tiles}")
 
-        return groups, sorted_tiles
+        return groups, original_tiles
     
     def group_suit(self,
                    tiles: List[Tile]) -> List[Group]:
         """ Group the tiles in hand into Groups that can be used to find what
         are the possible tiles that will be good to draw. Maximizing the number
         of useful tiles will help the player win faster. Tile that 
-        doesn't group with other tiles will be put on it's own group. 
+        doesn't group with other tiles will be put in it's own group. 
 
         Args:
             tiles (List[Tile]): List of Tiles objects 
@@ -113,11 +123,15 @@ class GroupMaker:
             while sorted_tiles:
                 first_tile_friends = self.find_friends(first_tile)
                 
-                groups, sorted_tiles = self.pick_sets(
-                    first_tile=first_tile,
-                    first_tile_friends=first_tile_friends,
-                    groups=groups,
-                    sorted_tiles=sorted_tiles)
+                # # Picking sets out of the sorted tiles
+                # groups, sorted_tiles = self.pick_sets(
+                #     first_tile=first_tile,
+                #     first_tile_friends=first_tile_friends,
+                #     groups=groups,
+                #     sorted_tiles=sorted_tiles)
+
+                # if not sorted_tiles:
+                #     return groups
 
                 current_tile = sorted_tiles[0]
                 if current_tile in first_tile_friends:
