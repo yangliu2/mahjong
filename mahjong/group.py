@@ -27,7 +27,7 @@ class Group:
 
         # for all other suits
         # Find the difference between all items in the numbers list
-        difference = [j-i for i, j in zip(numbers[:-1], numbers[1:])]
+        difference = [j - i for i, j in zip(numbers[:-1], numbers[1:])]
 
         # return empty list if the set were not related at all
         complement_tiles = []
@@ -37,19 +37,19 @@ class Group:
         if abs(difference[0]) == 1:
             if smaller_number == 1:
                 complement_tiles = [Tile(suit=self.tiles[0].suit,
-                                         number=smaller_number+2)]
+                                         number=smaller_number + 2)]
             elif smaller_number == 7:
                 complement_tiles = [Tile(suit=self.tiles[0].suit,
-                                         number=smaller_number-1)]
+                                         number=smaller_number - 1)]
             else:
                 complement_tiles = [Tile(suit=self.tiles[0].suit,
-                                         number=smaller_number-1),
+                                         number=smaller_number - 1),
                                     Tile(suit=self.tiles[0].suit,
-                                         number=smaller_number+2)]
+                                         number=smaller_number + 2)]
         # for 2w, 4w format
         elif abs(difference[0]) == 2:
             complement_tiles = [Tile(suit=self.tiles[0].suit,
-                                     number=smaller_number+1)]
+                                     number=smaller_number + 1)]
         # for 2w, 2w, format
         elif abs(difference[0]) == 0:
             complement_tiles = [Tile(suit=self.tiles[0].suit,
@@ -60,18 +60,17 @@ class Group:
 
         return complement_tiles
 
-
     def complete_set(self) -> List[Tile]:
         """ Find the tile that would complete the set for the parts """
 
         complement_tiles = []
-        
+
         if len(self.tiles) == 2:
             complement_tiles = self.complete_2_parts()
         # For parts that doesn't work with anything else, return empty
         elif len(self.tiles) == 1:
             return []
-        # Return more possibilites with 3 member parts
+        # Return more possibilities with 3 member parts
         elif len(self.tiles) > 2:
             # TODO: What find the complements for longer than 2 groups 
             pass

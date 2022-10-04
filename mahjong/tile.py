@@ -12,7 +12,7 @@ class Tile:
     def increment_hex(unicode_str: str,
                       increment: int = 1,
                       encoding: str = 'utf8') -> str:
-        """Increase the hex str by 1 to get the next unicode displaying tile
+        """ Increase the hex str by 1 to get the next unicode displaying tile
 
         Args:
             unicode_str (str): the tile unicode 

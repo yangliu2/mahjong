@@ -1,3 +1,4 @@
+""" Group tiles into group to better analysis which tile to discard """
 from mahjong.group import Group
 from mahjong.tile import Tile
 from mahjong.suit import SuitEnum
@@ -79,7 +80,7 @@ class GroupMaker:
         """ Group the tiles in hand into Groups that can be used to find what
         are the possible tiles that will be good to draw. Maximizing the number
         of useful tiles will help the player win faster. Tile that 
-        doesn't group with other tiles will be put in it's own group. 
+        doesn't group with other tiles will be put in its own group.
 
         Args:
             tiles (List[Tile]): List of Tiles objects 
@@ -95,7 +96,7 @@ class GroupMaker:
         # the fly using while
         while sorted_tiles:
             first_tile = sorted_tiles[0]
-            to_be_added = []
+            to_be_added = list()
             to_be_added.append(first_tile)
 
             # If the chow melds or pong melts exists, group them first
@@ -112,7 +113,7 @@ class GroupMaker:
                 if counter[first_tile] >= 3:
                     group = Group(tiles=[first_tile] * 3)
                     groups.append(group)
-                    [sorted_tiles.pop(0) for x in range(3)]
+                    [sorted_tiles.pop(0) for _ in range(3)]
                     continue
 
             sorted_tiles.pop(0)

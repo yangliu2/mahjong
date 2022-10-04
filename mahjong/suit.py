@@ -1,3 +1,4 @@
+""" Suits of Mahjong """
 from dataclasses import dataclass
 
 
