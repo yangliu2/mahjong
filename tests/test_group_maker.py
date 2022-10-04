@@ -106,6 +106,47 @@ class TestGroupMaker(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_group_suit_4(self):
+        tiles = [Tile('b', 1),
+                 Tile('b', 2),
+                 Tile('b', 3),
+                 Tile('b', 7),
+                 Tile('b', 9)]
+        actual = self.group_maker.group_suit(tiles=tiles)
+        expected = [Group([Tile('b', 1),
+                           Tile('b', 2),
+                           Tile('b', 3)]),
+                    Group([Tile('b', 7),
+                           Tile('b', 9)])]
+
+        self.assertEqual(actual, expected)
+        
+    def test_group_suit_5(self):
+        tiles = [Tile('b', 1),
+                 Tile('b', 2),
+                 Tile('b', 3),
+                 Tile('b', 3)]
+        actual = self.group_maker.group_suit(tiles=tiles)
+        expected = [Group([Tile('b', 1),
+                           Tile('b', 2),
+                           Tile('b', 3)]),
+                    Group([Tile('b', 3)])]
+
+        self.assertEqual(actual, expected)
+        
+    def test_group_suit_6(self):
+        tiles = [Tile('b', 2),
+                 Tile('b', 2),
+                 Tile('b', 2),
+                 Tile('b', 3)]
+        actual = self.group_maker.group_suit(tiles=tiles)
+        expected = [Group([Tile('b', 2),
+                           Tile('b', 2),
+                           Tile('b', 2)]),
+                    Group([Tile('b', 3)])]
+
+        self.assertEqual(actual, expected)
+
     def test_make_groups(self):
         actual = self.group_maker.make_groups()
         expected = [Group([Tile('w', 3),
@@ -120,27 +161,29 @@ class TestGroupMaker(unittest.TestCase):
                            Tile('b', 9)]),
                     Group([Tile('t', 4)])]
         self.assertEqual(actual, expected)
-
-    def test_pick_sets_straight(self):
-        first_tile = Tile(suit='w', number=1)
-        first_tile_friends = [Tile(suit='w', number=1),
-                              Tile(suit='w', number=2),
-                              Tile(suit='w', number=3)]
-        groups = []
-        sorted_tiles = [Tile(suit='w', number=2),
-                        Tile(suit='w', number=2),
-                        Tile(suit='w', number=3)]
-
-        actual = GroupMaker.pick_sets(first_tile=first_tile,
-                                      first_tile_friends=first_tile_friends,
-                                      groups=groups,
-                                      sorted_tiles=sorted_tiles)
-        expected_groups = [Group([Tile(suit='w', number=1),
-                                 Tile(suit='w', number=2),
-                                 Tile(suit='w', number=3)])]
-        expected_sorted_tiles = [Tile(suit='w', number=2)]
-        expected = expected_groups, expected_sorted_tiles
-
+        
+    def test_find_chow_tile_1(self):
+        tile = Tile(suit='w', number=1)
+        actual = GroupMaker.find_chow_tiles(tile=tile)
+        expected = [Tile(suit='w', number=1),
+                    Tile(suit='w', number=2),
+                    Tile(suit='w', number=3)]
+        self.assertEqual(actual, expected)
+        
+    def test_find_chow_tile_2(self):
+        tile = Tile(suit='w', number=9)
+        actual = GroupMaker.find_chow_tiles(tile=tile)
+        expected = [Tile(suit='w', number=7),
+                    Tile(suit='w', number=8),
+                    Tile(suit='w', number=9)]
+        self.assertEqual(actual, expected)
+        
+    def test_find_chow_tile_3(self):
+        tile = Tile(suit='w', number=8)
+        actual = GroupMaker.find_chow_tiles(tile=tile)
+        expected = [Tile(suit='w', number=7),
+                    Tile(suit='w', number=8),
+                    Tile(suit='w', number=9)]
         self.assertEqual(actual, expected)
 
 

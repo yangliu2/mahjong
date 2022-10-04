@@ -1,11 +1,9 @@
-from os import stat
 from mahjong.group import Group
 from mahjong.tile import Tile
 from mahjong.suit import SuitEnum
-from typing import Dict, List, Tuple
+from typing import Dict, List
 from dataclasses import dataclass
 from collections import Counter
-from copy import deepcopy
 
 
 @dataclass
@@ -25,9 +23,9 @@ class GroupMaker:
         Returns:
             List[Tile]: List of friendly tiles
         """
-        if tile.suit == SuitEnum.HUA or tile.suit == SuitEnum.FENG:
+        if tile.suit == SuitEnum.FLOWERS or tile.suit == SuitEnum.WINDS:
             return []
-        elif tile.suit in [SuitEnum.WAN, SuitEnum.BING, SuitEnum.TIAO]:
+        elif tile.suit in [SuitEnum.CHARACTERS, SuitEnum.DOTS, SuitEnum.BAMBOO]:
             if tile.number == 1:
                 return [Tile(suit=tile.suit, number=1),
                         Tile(suit=tile.suit, number=2),
@@ -54,47 +52,28 @@ class GroupMaker:
                         Tile(suit=tile.suit, number=tile.number+2)]
 
     @staticmethod
-    def pick_sets(first_tile: Tile,
-                  first_tile_friends: List[Tile],
-                  groups: List,
-                  sorted_tiles: List[Tile]) -> Tuple[List[Group], List[Tile]]:
-        """ Pick out sets of tiles because they are often grouped first 
+    def find_chow_tiles(tile: Tile) -> List[Tile]:
+        """Find the tiles for the next chow set, starting from the current
+        tile. If the tile is more than 7, then return 7, 8, 9
 
         Args:
-            first_tile (Tile): first tile in the set
-            first_tile_friends (List[Tile]): what are the tiles that can make
-            sets with the first tile
-            groups (List): groups after checking for sets
-            sorted_tiles (List[Tile]): Sorted sets for grouping sets
+            tile (Tile): given tile for the next chow set
 
         Returns:
-            Tuple[List[Group], List[Tile]]: return groups, and sorted tiles
+            List[Tile]: set of tiles for chow
         """
-        # Add first tile back to the first position
-        original_tiles = deepcopy(sorted_tiles)
-        original_tiles.insert(0, first_tile)
-        
-        # if 'abc' forms a set
-        # if orignal tiles is a subset of first_tile_friends
-        if all(x in first_tile_friends for x in original_tiles):
-            group = Group(tiles=first_tile_friends)
-            # remove from sorted_tiles
-            [original_tiles.remove(x) for x in first_tile_friends]
-            groups.append(group)
-        
-        # if 'aaa' forms a set
-        counter = Counter(original_tiles)
-        if first_tile in counter:
-            if counter[first_tile] >= 3:
-                group = Group(tiles=[first_tile * 3])
-                # remove from sorted_tiles
-                [original_tiles.pop(0) for x in range(3)]
-                groups.append(group)
+        if tile.suit == SuitEnum.FLOWERS or tile.suit == SuitEnum.WINDS:
+            return []
+        elif tile.suit in [SuitEnum.CHARACTERS, SuitEnum.DOTS, SuitEnum.BAMBOO]:
+            if tile.number < 8:
+                return [Tile(suit=tile.suit, number=tile.number),
+                        Tile(suit=tile.suit, number=tile.number+1),
+                        Tile(suit=tile.suit, number=tile.number+2)]
+            elif tile.number >= 8:
+                return [Tile(suit=tile.suit, number=7),
+                        Tile(suit=tile.suit, number=8),
+                        Tile(suit=tile.suit, number=9)]
 
-        print(f"original_tiles: {sorted_tiles} \n groups: {original_tiles}")
-
-        return groups, original_tiles
-    
     def group_suit(self,
                    tiles: List[Tile]) -> List[Group]:
         """ Group the tiles in hand into Groups that can be used to find what
@@ -118,20 +97,27 @@ class GroupMaker:
             first_tile = sorted_tiles[0]
             to_be_added = []
             to_be_added.append(first_tile)
-            sorted_tiles.pop(0)
 
+            # If the chow melds or pong melts exists, group them first
+            # for chow melds
+            chow_set = self.find_chow_tiles(tile=first_tile)
+            if all(x in sorted_tiles for x in chow_set):
+                groups.append(Group(tiles=chow_set))
+                [sorted_tiles.remove(x) for x in chow_set]
+                continue
+
+            # for pong melds
+            counter = Counter(sorted_tiles)
+            if first_tile in counter:
+                if counter[first_tile] >= 3:
+                    group = Group(tiles=[first_tile] * 3)
+                    groups.append(group)
+                    [sorted_tiles.pop(0) for x in range(3)]
+                    continue
+
+            sorted_tiles.pop(0)
             while sorted_tiles:
                 first_tile_friends = self.find_friends(first_tile)
-                
-                # # Picking sets out of the sorted tiles
-                # groups, sorted_tiles = self.pick_sets(
-                #     first_tile=first_tile,
-                #     first_tile_friends=first_tile_friends,
-                #     groups=groups,
-                #     sorted_tiles=sorted_tiles)
-
-                # if not sorted_tiles:
-                #     return groups
 
                 current_tile = sorted_tiles[0]
                 if current_tile in first_tile_friends:
@@ -155,6 +141,6 @@ class GroupMaker:
             List[Group]: List of Groups that are useful being put together
         """
         groups = [self.group_suit(tiles=v)
-                 for _, v in self.group_dict.items()]
+                  for _, v in self.group_dict.items()]
         flattened_groups = [x for sub in groups for x in sub]
         return flattened_groups

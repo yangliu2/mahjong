@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 
 @dataclass(order=True, unsafe_hash=True)
 class Tile:
-    suit: Suit = field(compare=False)
+    suit: str = field(compare=False)
     number: int = field(compare=True)
 
     @staticmethod

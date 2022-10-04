@@ -17,11 +17,11 @@ class Group:
         smaller_number = sorted(numbers)[0]
 
         # for 'hua' suit
-        if SuitEnum.HUA in [x.suit for x in self.tiles]:
+        if SuitEnum.FLOWERS in [x.suit for x in self.tiles]:
             return []
 
         # for 'feng' suit
-        if SuitEnum.FENG in [x.suit for x in self.tiles]:
+        if SuitEnum.WINDS in [x.suit for x in self.tiles]:
             return [Tile(suit=self.tiles[0].suit,
                          number=smaller_number)]
 
