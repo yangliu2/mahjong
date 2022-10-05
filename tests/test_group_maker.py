@@ -48,6 +48,16 @@ class TestGroupMaker(unittest.TestCase):
                     Tile('w', 4)]
         self.assertEqual(actual, expected)
 
+    def test_find_friends_2b(self):
+        tile = Tile('b', 2)
+        actual = GroupMaker.find_friends(tile=tile)
+
+        expected = [Tile('b', 1),
+                    Tile('b', 2),
+                    Tile('b', 3),
+                    Tile('b', 4)]
+        self.assertEqual(actual, expected)
+
     def test_find_friends_8w(self):
         tile = Tile('w', 8)
         actual = GroupMaker.find_friends(tile=tile)

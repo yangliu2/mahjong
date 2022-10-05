@@ -24,9 +24,14 @@ class GroupMaker:
         Returns:
             List[Tile]: List of friendly tiles
         """
-        if tile.suit == SuitEnum.FLOWERS or tile.suit == SuitEnum.WINDS:
+        if tile.suit in [SuitEnum.FLOWERS.value,
+                         SuitEnum.WINDS.value,
+                         SuitEnum.DRAGONS.value,
+                         SuitEnum.SEASONS.value]:
             return []
-        elif tile.suit in [SuitEnum.CHARACTERS, SuitEnum.DOTS, SuitEnum.BAMBOO]:
+        elif tile.suit in [SuitEnum.CHARACTERS.value,
+                           SuitEnum.DOTS.value,
+                           SuitEnum.BAMBOO.value]:
             if tile.number == 1:
                 return [Tile(suit=tile.suit, number=1),
                         Tile(suit=tile.suit, number=2),
@@ -46,11 +51,11 @@ class GroupMaker:
                         Tile(suit=tile.suit, number=8),
                         Tile(suit=tile.suit, number=9)]
             else:
-                return [Tile(suit=tile.suit, number=tile.number-2),
-                        Tile(suit=tile.suit, number=tile.number-1),
+                return [Tile(suit=tile.suit, number=tile.number - 2),
+                        Tile(suit=tile.suit, number=tile.number - 1),
                         Tile(suit=tile.suit, number=tile.number),
-                        Tile(suit=tile.suit, number=tile.number+1),
-                        Tile(suit=tile.suit, number=tile.number+2)]
+                        Tile(suit=tile.suit, number=tile.number + 1),
+                        Tile(suit=tile.suit, number=tile.number + 2)]
 
     @staticmethod
     def find_chow_tiles(tile: Tile) -> List[Tile]:
@@ -63,13 +68,18 @@ class GroupMaker:
         Returns:
             List[Tile]: set of tiles for chow
         """
-        if tile.suit == SuitEnum.FLOWERS or tile.suit == SuitEnum.WINDS:
+        if tile.suit in [SuitEnum.FLOWERS.value,
+                         SuitEnum.WINDS.value,
+                         SuitEnum.DRAGONS.value,
+                         SuitEnum.SEASONS.value]:
             return []
-        elif tile.suit in [SuitEnum.CHARACTERS, SuitEnum.DOTS, SuitEnum.BAMBOO]:
+        elif tile.suit in [SuitEnum.CHARACTERS.value,
+                           SuitEnum.DOTS.value,
+                           SuitEnum.BAMBOO.value]:
             if tile.number < 8:
                 return [Tile(suit=tile.suit, number=tile.number),
-                        Tile(suit=tile.suit, number=tile.number+1),
-                        Tile(suit=tile.suit, number=tile.number+2)]
+                        Tile(suit=tile.suit, number=tile.number + 1),
+                        Tile(suit=tile.suit, number=tile.number + 2)]
             elif tile.number >= 8:
                 return [Tile(suit=tile.suit, number=7),
                         Tile(suit=tile.suit, number=8),
@@ -119,7 +129,6 @@ class GroupMaker:
             sorted_tiles.pop(0)
             while sorted_tiles:
                 first_tile_friends = self.find_friends(first_tile)
-
                 current_tile = sorted_tiles[0]
                 if current_tile in first_tile_friends:
                     to_be_added.append(current_tile)
