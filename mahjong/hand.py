@@ -53,7 +53,7 @@ class Hand:
 
         Returns:
             Dict[str, List[Tile]]: groups by hand in {'w': [<Tile>, <Tile>] ...} 
-            format with key being the string representaiton of suit, and value 
+            format with key being the string representation of suit, and value
             is a list of the tile numbers
         """
         group_dict = defaultdict(list)

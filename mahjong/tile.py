@@ -1,5 +1,5 @@
 """ Basic unit in Mahjong """
-from mahjong.suit import Suit, SuitEnum
+from mahjong.suit import SuitEnum
 from dataclasses import dataclass, field
 
 
@@ -7,6 +7,10 @@ from dataclasses import dataclass, field
 class Tile:
     suit: str = field(compare=False)
     number: int = field(compare=True)
+
+    def __post_init__(self):
+        """ Use SuitEnum values as a shorthand to indicate tile type"""
+        self.suit = str(SuitEnum(self.suit).value)
 
     @staticmethod
     def increment_hex(unicode_str: str,

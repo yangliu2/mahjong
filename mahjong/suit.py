@@ -40,6 +40,9 @@ class DragonSuitEnum(Enum):
     White = 3
 
 
-@dataclass
+@dataclass(unsafe_hash=True)
 class Suit:
     name: str
+
+    def __post_init__(self):
+        self.name = SuitEnum(self.name).name

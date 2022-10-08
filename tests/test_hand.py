@@ -3,6 +3,7 @@ from mahjong.hand import Hand
 from mahjong.tile import Tile
 from mahjong.rules import Rules
 from mahjong.group import Group
+from mahjong.suit import SuitEnum
 
 
 class TestHand(unittest.TestCase):
@@ -26,7 +27,7 @@ class TestHand(unittest.TestCase):
         expected = True
         self.assertEqual(actual, expected)
 
-    def test_is_group_by_suit(self):
+    def test_group_by_suit(self):
         actual = Hand.group_by_suit(self.invalid_hand.tiles)
         expected = {'w': [Tile('w', 1),
                           Tile('w', 2),
