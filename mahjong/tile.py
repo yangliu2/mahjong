@@ -29,9 +29,9 @@ class Tile:
         """
         hex_str = unicode_str.encode(encoding)
         hex_str_int = int.from_bytes(hex_str, 'big')
-        incresed_hex_str_int = hex_str_int + increment
+        increased_hex_str_int = hex_str_int + increment
         hex_length = len(hex_str)
-        increased_hex_str = incresed_hex_str_int.to_bytes(hex_length, 'big')
+        increased_hex_str = increased_hex_str_int.to_bytes(hex_length, 'big')
         increased_str = increased_hex_str.decode(encoding)
 
         return increased_str
