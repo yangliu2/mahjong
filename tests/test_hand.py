@@ -3,7 +3,6 @@ from mahjong.hand import Hand
 from mahjong.tile import Tile
 from mahjong.rules import Rules
 from mahjong.group import Group
-from mahjong.suit import SuitEnum
 
 
 class TestHand(unittest.TestCase):

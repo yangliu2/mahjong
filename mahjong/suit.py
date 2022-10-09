@@ -1,6 +1,6 @@
 """ Suits of Mahjong """
 from dataclasses import dataclass
-from enum import Enum
+from enum import Enum, IntEnum
 
 
 class SuitEnum(Enum):
@@ -13,28 +13,28 @@ class SuitEnum(Enum):
     SEASONS = 'j'
 
 
-class FlowerSuitEnum(Enum):
+class FlowerSuitEnum(IntEnum):
     PLUM_BLOSSOM = 1
     ORCHID = 2
     CHRYSANTHEMUM = 3
     BAMBOO = 4
 
 
-class SeasonSuitEnum(Enum):
+class SeasonSuitEnum(IntEnum):
     SPRING = 1
     SUMMER = 2
     AUTUMN = 3
     WINTER = 4
 
 
-class WindSuitEnum(Enum):
+class WindSuitEnum(IntEnum):
     EAST = 1
     SOUTH = 2
     WEST = 3
     NORTH = 4
 
 
-class DragonSuitEnum(Enum):
+class DragonSuitEnum(IntEnum):
     RED = 1
     Green = 2
     White = 3

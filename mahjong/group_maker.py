@@ -126,6 +126,8 @@ class GroupMaker:
                     [sorted_tiles.pop(0) for _ in range(3)]
                     continue
 
+            # If there are no melds, then group using friends of the first
+            # tiles.
             sorted_tiles.pop(0)
             while sorted_tiles:
                 first_tile_friends = self.find_friends(first_tile)
