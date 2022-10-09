@@ -11,7 +11,7 @@ class TestHand(unittest.TestCase):
         raw_tiles = '1w2w3w4b'
         cls.invalid_hand = Hand(raw_tiles=raw_tiles)
 
-        raw_tiles = '1w1w1w4w5w2t3t3t6f6f5f5f4b'
+        raw_tiles = '1w1w1w4w5w2t3t3t2f2f3f3f4b'
         cls.valid_hand = Hand(raw_tiles=raw_tiles)
 
         cls.rules = Rules()

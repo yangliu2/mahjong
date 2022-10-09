@@ -1,4 +1,5 @@
 """ The tiles each player has """
+import logging
 from typing import List, Dict
 from mahjong.tile import Tile
 from mahjong.rules import Rules
@@ -6,6 +7,9 @@ from mahjong.group import Group
 from mahjong.group_maker import GroupMaker
 from collections import defaultdict
 from dataclasses import dataclass
+
+logging.basicConfig()
+logging.getLogger().setLevel(logging.DEBUG)
 
 
 @dataclass
@@ -46,7 +50,7 @@ class Hand:
 
     @staticmethod
     def group_by_suit(hand: List[Tile]) -> Dict[str, List[Tile]]:
-        """Group each hand by suit so it can be used for Parts generation
+        """Group each hand by suit, so it can be used for Parts generation
 
         Args:
             hand (List[Tile]): List of Tile objects that represent the hand
@@ -72,7 +76,9 @@ class Hand:
             List[Group]: a list of groups than can be used to find best tiles
             to draw
         """
+        logging.info("Creating group dicts")
         group_dict = self.group_by_suit(self.tiles)
+        logging.info("Creating groups")
         group_maker = GroupMaker(group_dict=group_dict)
         groups = group_maker.make_groups()
         

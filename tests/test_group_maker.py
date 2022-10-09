@@ -20,6 +20,11 @@ class TestGroupMaker(unittest.TestCase):
                       'b': [Tile('b', 4)]}
         cls.group_maker = GroupMaker(group_dict=group_dict)
 
+        # For winds
+        group_dict_2 = {'f': [Tile('f', 1),
+                              Tile('f', 2)]}
+        cls.group_maker_2 = GroupMaker(group_dict=group_dict_2)
+
     def test_find_friends_1w(self):
         tile = Tile('w', 1)
         actual = GroupMaker.find_friends(tile=tile)
@@ -157,7 +162,14 @@ class TestGroupMaker(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
-    def test_make_groups(self):
+    def test_group_suit_7(self):
+        tiles = [Tile('f', 1)]
+        actual = self.group_maker.group_suit(tiles=tiles)
+        expected = [Group([Tile('f', 1)])]
+
+        self.assertEqual(actual, expected)
+
+    def test_make_groups_1(self):
         actual = self.group_maker.make_groups()
         expected = [Group([Tile('w', 3),
                            Tile('w', 5)]),
@@ -171,7 +183,14 @@ class TestGroupMaker(unittest.TestCase):
                            Tile('b', 9)]),
                     Group([Tile('t', 4)])]
         self.assertEqual(actual, expected)
-        
+
+    def test_make_groups_2(self):
+        actual = self.group_maker_2.make_groups()
+
+        expected = [Group([Tile('f', 1)]),
+                    Group([Tile('f', 2)])]
+        self.assertEqual(actual, expected)
+
     def test_find_chow_tile_1(self):
         tile = Tile(suit='w', number=1)
         actual = GroupMaker.find_chow_tiles(tile=tile)

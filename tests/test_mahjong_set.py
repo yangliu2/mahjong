@@ -12,6 +12,9 @@ class TestHand(unittest.TestCase):
         suit_only_rule = Rules(have_bonus=False, have_honors=False)
         cls.suit_only_set = MahjongSet(rules=suit_only_rule)
 
+        international_rule = Rules(have_bonus=False, have_honors=True)
+        cls.international_set = MahjongSet(rules=international_rule)
+
     def test_post_init_1(self):
         actual = len(self.full_set.tiles)
         expected = 144
@@ -20,6 +23,11 @@ class TestHand(unittest.TestCase):
     def test_post_init_2(self):
         actual = len(self.suit_only_set.tiles)
         expected = 112
+        self.assertEqual(actual, expected)
+
+    def test_post_init_3(self):
+        actual = len(self.international_set.tiles)
+        expected = 136
         self.assertEqual(actual, expected)
 
 

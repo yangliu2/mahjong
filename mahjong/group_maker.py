@@ -1,10 +1,14 @@
 """ Group tiles into group to better analysis which tile to discard """
+import logging
 from mahjong.group import Group
 from mahjong.tile import Tile
 from mahjong.suit import SuitEnum
 from typing import Dict, List
 from dataclasses import dataclass
 from collections import Counter
+
+logging.basicConfig()
+logging.getLogger().setLevel(logging.DEBUG)
 
 
 @dataclass
@@ -25,10 +29,11 @@ class GroupMaker:
             List[Tile]: List of friendly tiles
         """
         if tile.suit in [SuitEnum.FLOWERS.value,
-                         SuitEnum.WINDS.value,
-                         SuitEnum.DRAGONS.value,
                          SuitEnum.SEASONS.value]:
-            return []
+            return None
+        elif tile.suit in [SuitEnum.WINDS.value,
+                           SuitEnum.DRAGONS.value]:
+            return [Tile(suit=tile.suit, number=tile.number)]
         elif tile.suit in [SuitEnum.CHARACTERS.value,
                            SuitEnum.DOTS.value,
                            SuitEnum.BAMBOO.value]:
@@ -72,7 +77,7 @@ class GroupMaker:
                          SuitEnum.WINDS.value,
                          SuitEnum.DRAGONS.value,
                          SuitEnum.SEASONS.value]:
-            return []
+            return None
         elif tile.suit in [SuitEnum.CHARACTERS.value,
                            SuitEnum.DOTS.value,
                            SuitEnum.BAMBOO.value]:
@@ -112,7 +117,7 @@ class GroupMaker:
             # If the chow melds or pong melts exists, group them first
             # for chow melds
             chow_set = self.find_chow_tiles(tile=first_tile)
-            if all(x in sorted_tiles for x in chow_set):
+            if chow_set and all(x in sorted_tiles for x in chow_set):
                 groups.append(Group(tiles=chow_set))
                 [sorted_tiles.remove(x) for x in chow_set]
                 continue

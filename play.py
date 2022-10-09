@@ -1,19 +1,27 @@
+import logging
+
 from mahjong.tile import Tile
 from mahjong.hand import Hand
 from mahjong.group import Group
+
+logging.basicConfig()
+logging.getLogger().setLevel(logging.DEBUG)
 
 
 def recognize_hand(raw_hand: str):
     """ Parse the raw hand input into hand object """
 
     # create hand based on the input list
+    logging.info("Setting up hand.")
     hand = Hand(raw_tiles=raw_hand)
-    
+
     # Create groups and display
+    logging.info("Creating groups.")
     groups = hand.breakdown_groups()
     [print(x) for x in groups]
     
     # Find the tiles that can complete each group
+    logging.info("Finding groups")
     complements = [x.complete_set() for x in groups]
     flattened_complements = [x for sub in complements for x in sub]
     [print(x) for x in flattened_complements]
