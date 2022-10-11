@@ -18,12 +18,14 @@ def recognize_hand(raw_hand: str):
     # Create groups and display
     logging.info("Creating groups.")
     groups = hand.breakdown_groups()
+    logging.info("Here are the groups of your hand.")
     [print(x) for x in groups]
     
     # Find the tiles that can complete each group
     logging.info("Finding groups")
     complements = [x.complete_set() for x in groups]
     flattened_complements = [x for sub in complements for x in sub]
+    logging.info("Here is the tiles that complement to your hand.")
     [print(x) for x in flattened_complements]
     
 

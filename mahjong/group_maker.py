@@ -30,7 +30,7 @@ class GroupMaker:
         """
         if tile.suit in [SuitEnum.FLOWERS.value,
                          SuitEnum.SEASONS.value]:
-            return None
+            return []
         elif tile.suit in [SuitEnum.WINDS.value,
                            SuitEnum.DRAGONS.value]:
             return [Tile(suit=tile.suit, number=tile.number)]
@@ -77,7 +77,7 @@ class GroupMaker:
                          SuitEnum.WINDS.value,
                          SuitEnum.DRAGONS.value,
                          SuitEnum.SEASONS.value]:
-            return None
+            return []
         elif tile.suit in [SuitEnum.CHARACTERS.value,
                            SuitEnum.DOTS.value,
                            SuitEnum.BAMBOO.value]:
