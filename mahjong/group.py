@@ -66,10 +66,15 @@ class Group:
 
     def complete_multiple_parts(self,
                                 tiles: List[Tile]) -> List[Tile]:
-        """
-        Break down the tiles into 2 tile groups, determine the tiles
+        """Break down the tiles into 2 tile groups, determine the tiles
         need to complete each 2 tile groups, then combine all the tiles for
         the complete set of useful tiles.
+
+        Args:
+            tiles (List[Tile]): these tiles will be used to generate complements
+
+        Returns:
+            List[Tile]: the complemented tiles
         """
 
         # Breakdown the tiles into 2 member groups
