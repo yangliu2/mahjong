@@ -3,6 +3,7 @@ from mahjong.tile import Tile
 from typing import List, Set
 from itertools import combinations
 from mahjong.suit import SuitEnum
+from mahjong.utils import find_friends
 from dataclasses import dataclass
 
 
@@ -58,9 +59,12 @@ class Group:
         elif abs(difference[0]) == 0:
             complement_tiles = [Tile(suit=tiles[0].suit,
                                      number=smaller_number)]
+        # anything similar to 1w, 5w, particularly in a 1w, 3w, 5w group
+        elif abs(difference[0]) > 2:
+            pass
         else:
-            tiles = [str(x) for x in tiles]
-            print(f"Error encountered when trying complete {tiles}")
+            new_tiles = [str(x) for x in tiles]
+            print(f"Error encountered when trying complete {new_tiles}")
 
         return complement_tiles
 
@@ -93,12 +97,29 @@ class Group:
         added_own = flattened_comp_tiles | set(tiles)
 
         return sorted(added_own)
+    
+    def complete_3_parts(self,
+                         tiles: List[Tile]) -> List[Tile]:
+        """Find all the friends for each tile. If any of the friends will 
+        complete the set then use that friend as the complement
+
+        Args:
+            tiles (List[Tile]): set of tiles more than 2, but doesn't complete
+            a meld.
+
+        Returns:
+            List[Tile]: the set of tiles that will complete the set to get meld
+        """
+        
+        # Get the friends for all the tiles
+        friends = [find_friends(tile=x) for x in tiles]
 
     def complete_set(self) -> List[Tile]:
         """ Find the tile that would complete the set for the parts """
 
         complement_tiles = []
 
+        # for groups that's not completed melds yet
         if len(self.tiles) == 2:
             complement_tiles = self.complete_2_parts(tiles=self.tiles)
         # For parts that doesn't work with anything else, return empty

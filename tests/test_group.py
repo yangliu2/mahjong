@@ -74,6 +74,14 @@ class TestGroup(unittest.TestCase):
                     Tile('w', 4),
                     Tile('w', 5)]
         self.assertEqual(actual, expected)
+        
+    def test_complete_3_parts(self):
+        tiles = self.group_2.tiles
+        actual = self.group_2.complete_3_parts(tiles=tiles)
+        expected = [Tile('w', 1),
+                    Tile('w', 2),
+                    Tile('w', 4)]
+        self.assertEqual(actual, expected)
 
 
 if __name__ == '__main__':
