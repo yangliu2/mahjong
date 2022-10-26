@@ -29,7 +29,7 @@ class TestGroup(unittest.TestCase):
                    Tile('w', 3)]
         cls.group_1 = Group(tiles_5)
 
-        # 2w, 2w, 3w
+        # 1w, 3w, 5w
         tiles_6 = [Tile('w', 1),
                    Tile('w', 3),
                    Tile('w', 5)]
@@ -55,29 +55,17 @@ class TestGroup(unittest.TestCase):
         actual = self.group_1.complete_2_parts(self.tiles_4)
         expected = [Tile('w', 2)]
         self.assertEqual(actual, expected)
-
-    def test_complete_multiple_parts_1(self):
-        tiles = self.group_1.tiles
-        actual = self.group_1.complete_multiple_parts(tiles)
-        expected = [Tile('w', 1),
-                    Tile('w', 2),
-                    Tile('w', 3),
-                    Tile('w', 4)]
-        self.assertEqual(actual, expected)
-
-    def test_complete_multiple_parts_2(self):
-        tiles = self.group_2.tiles
-        actual = self.group_2.complete_multiple_parts(tiles)
-        expected = [Tile('w', 1),
-                    Tile('w', 2),
-                    Tile('w', 3),
-                    Tile('w', 4),
-                    Tile('w', 5)]
-        self.assertEqual(actual, expected)
         
-    def test_complete_3_parts(self):
+    def test_complete_3_parts_1(self):
         tiles = self.group_2.tiles
         actual = self.group_2.complete_3_parts(tiles=tiles)
+        expected = [Tile('w', 2),
+                    Tile('w', 4)]
+        self.assertEqual(actual, expected)
+        
+    def test_complete_3_parts_2(self):
+        tiles = self.group_1.tiles
+        actual = self.group_1.complete_3_parts(tiles=tiles)
         expected = [Tile('w', 1),
                     Tile('w', 2),
                     Tile('w', 4)]

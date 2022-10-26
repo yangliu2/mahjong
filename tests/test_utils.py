@@ -1,6 +1,6 @@
 import unittest
 from mahjong.tile import Tile
-from mahjong.utils import find_chow_tiles, find_friends
+from mahjong.utils import find_chow_tiles, find_friends, get_meld
 
 
 class TestUtils(unittest.TestCase):
@@ -89,6 +89,45 @@ class TestUtils(unittest.TestCase):
         expected = [Tile(suit='w', number=7),
                     Tile(suit='w', number=8),
                     Tile(suit='w', number=9)]
+        self.assertEqual(actual, expected)
+        
+    def test_get_meld_no_meld(self):
+        tiles = [Tile(suit='w', number=7),
+                 Tile(suit='w', number=8)]
+        actual = get_meld(tiles=tiles)
+        expected = []
+        self.assertEqual(actual, expected)
+        
+    def test_get_meld_yes_meld_1(self):
+        tiles = [Tile(suit='w', number=7),
+                 Tile(suit='w', number=8),
+                 Tile(suit='w', number=9)]
+        actual = get_meld(tiles=tiles)
+        expected = [Tile(suit='w', number=7),
+                    Tile(suit='w', number=8),
+                    Tile(suit='w', number=9)]
+        self.assertEqual(actual, expected)
+        
+    def test_get_meld_yes_meld_2(self):
+        tiles = [Tile(suit='w', number=7),
+                 Tile(suit='w', number=7),
+                 Tile(suit='w', number=7)]
+        actual = get_meld(tiles=tiles)
+        expected = [Tile(suit='w', number=7),
+                    Tile(suit='w', number=7),
+                    Tile(suit='w', number=7)]
+        self.assertEqual(actual, expected)
+        
+    def test_get_meld_yes_meld_3(self):
+        tiles = [Tile(suit='w', number=7),
+                 Tile(suit='w', number=7),
+                 Tile(suit='w', number=7),
+                 Tile(suit='w', number=7)]
+        actual = get_meld(tiles=tiles)
+        expected = [Tile(suit='w', number=7),
+                    Tile(suit='w', number=7),
+                    Tile(suit='w', number=7),
+                    Tile(suit='w', number=7)]
         self.assertEqual(actual, expected)
 
 

@@ -3,8 +3,9 @@ from mahjong.tile import Tile
 from typing import List, Set
 from itertools import combinations
 from mahjong.suit import SuitEnum
-from mahjong.utils import find_friends
+from mahjong.utils import find_friends, get_meld
 from dataclasses import dataclass
+from copy import deepcopy
 
 
 @dataclass
@@ -110,9 +111,26 @@ class Group:
         Returns:
             List[Tile]: the set of tiles that will complete the set to get meld
         """
+        complement_set = []
         
         # Get the friends for all the tiles
-        friends = [find_friends(tile=x) for x in tiles]
+        friends_2d = [find_friends(tile=x) for x in tiles]
+        friends = {x 
+                   for layer in friends_2d 
+                   for x in layer}
+        
+        # Add friend to the tiles, and check if meld is made. Collect all the 
+        #  tiles that will make melds.
+        for friend in sorted(friends):
+            # Append function critically require a deepcopy
+            new_tiles = deepcopy(tiles)
+            new_tiles.append(friend)
+            meld = get_meld(tiles=new_tiles)
+            if meld:
+                complement_set.append(friend)
+                
+        return complement_set
+
 
     def complete_set(self) -> List[Tile]:
         """ Find the tile that would complete the set for the parts """
@@ -127,6 +145,6 @@ class Group:
             return []
         # Return more possibilities with 3 member parts
         elif len(self.tiles) > 2:
-            self.complete_multiple_parts(tiles=self.tiles)
+            complement_tiles = self.complete_3_parts(tiles=self.tiles)
 
         return complement_tiles

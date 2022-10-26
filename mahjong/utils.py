@@ -1,4 +1,5 @@
 from typing import List
+from collections import Counter
 from mahjong.tile import Tile
 from mahjong.suit import SuitEnum
 
@@ -76,3 +77,32 @@ def find_chow_tiles(tile: Tile) -> List[Tile]:
             return [Tile(suit=tile.suit, number=7),
                     Tile(suit=tile.suit, number=8),
                     Tile(suit=tile.suit, number=9)]
+
+def get_meld(tiles: List[Tile]) -> List[Tile]:
+    """Given a list of tiles return, any melds made by the tiles. If no melds
+    in the tiles, then return empty list.
+
+    Args:
+        tiles (List[Tile]): List of Tiles
+
+    Returns:
+        List[Tile]: List of tile that makes a melds using the given tiles. 
+        Return an empty list of there is no melds.
+    """
+    meld_set = []
+    for tile in tiles:
+        chow_tiles = find_chow_tiles(tile=tile)
+        pong_tiles = [tile] * 3
+        kong_tiles = [tile] * 4
+        
+        # If there is a chow meld
+        if (all(x in tiles for x in chow_tiles)):
+            return chow_tiles
+        # If there is a pong meld
+        elif Counter(tiles)[tile] == 3:
+            return pong_tiles
+        # If there is a kong meld
+        elif Counter(tiles)[tile] == 4:
+            return kong_tiles
+
+    return meld_set
