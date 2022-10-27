@@ -12,5 +12,6 @@ way.
 ------------
 
 .. toctree::
-   Installation
-   Code
+
+   installation
+   code
