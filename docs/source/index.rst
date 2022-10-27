@@ -6,12 +6,11 @@ provide the best move to train a player to play Mahjong in the most efficient
 way.
 
 .. note::
-
    This project is under active development.
 
 **Contents**
 ------------
 
 .. toctree::
-
-   installation
+   Installation
+   Code
