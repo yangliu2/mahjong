@@ -1,4 +1,4 @@
 Code
 ====
 
-.. autofunction:: mahjong.tile.Tile
+.. autoclass:: Tile
