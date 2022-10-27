@@ -5,11 +5,12 @@ from dataclasses import dataclass, field
 
 @dataclass(order=True, unsafe_hash=True)
 class Tile:
-    """
-    This is an basic level object for tiles in Mahjong
-    :class: `None`
-    :param suit: suit type in string format
+    """This is a the most basic unit in Mahjong
+
+    :param suit: str representation of the suit type
     :type suit: str
+    :param number: number of the tile
+    :type number: int
     """
     suit: str = field(compare=False)
     number: int = field(compare=True)
@@ -22,17 +23,18 @@ class Tile:
     def increment_hex(unicode_str: str,
                       increment: int = 1,
                       encoding: str = 'utf8') -> str:
-        """ Increase the hex str by 1 to get the next unicode displaying tile
+        """Increase the hex str by 1 to get the next unicode displaying tile
 
-        Args:
-            unicode_str (str): the tile unicode 
-            increment (int, optional): how many increment to the hex str. 
-            Defaults to 1.
-            encoding (str, optional): displaying encoding. Defaults to 'utf8'.
-
-        Returns:
-            str: the unicode string that can be displayed in cli
+        :param unicode_str: the tile unicode
+        :type unicode_str: str
+        :param increment: how many increment to the hex str, defaults to 1
+        :type increment: int, optional
+        :param encoding: displaying encoding, defaults to 'utf8'
+        :type encoding: str, optional
+        :return: the unicode string that can be displayed in cli
+        :rtype: str
         """
+
         hex_str = unicode_str.encode(encoding)
         hex_str_int = int.from_bytes(hex_str, 'big')
         increased_hex_str_int = hex_str_int + increment
