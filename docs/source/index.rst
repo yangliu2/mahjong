@@ -7,9 +7,9 @@ Welcome to Mahjong's documentation!
 ===================================
 
 .. toctree::
-   usage
    :maxdepth: 2
    :caption: Contents:
+   usage
 
 
 
