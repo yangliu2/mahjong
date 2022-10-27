@@ -9,7 +9,3 @@ way.
 
    This project is under active development.
 
-
-.. toctree::
-
-   usage
