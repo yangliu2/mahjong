@@ -1,21 +1,17 @@
-.. Mahjong documentation master file, created by
-   sphinx-quickstart on Wed Oct 26 21:46:12 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Mahjong's documentation!
 ===================================
 
+**Mahjong** is a Python library that analyze the hands of a Mahjong game and
+provide the best move to train a player to play Mahjong in the most efficient
+way.
+
+.. note::
+
+   This project is under active development.
+
+Contents
+--------
+
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+
    usage
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
