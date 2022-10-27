@@ -9,3 +9,6 @@ way.
 
    This project is under active development.
 
+.. toctree::
+
+   installation
