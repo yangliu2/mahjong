@@ -5,6 +5,12 @@ from dataclasses import dataclass, field
 
 @dataclass(order=True, unsafe_hash=True)
 class Tile:
+    """
+    This is an basic level object for tiles in Mahjong
+    :class: `None`
+    :param suit: suit type in string format
+    :type suit: str
+    """
     suit: str = field(compare=False)
     number: int = field(compare=True)
 
