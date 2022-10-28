@@ -1,3 +1,1 @@
-sphinx
-nbsphinx
 git+https://github.com/yangliu2/mahjong.git
