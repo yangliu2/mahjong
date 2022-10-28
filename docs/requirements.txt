@@ -1,4 +1,3 @@
 sphinx
 nbsphinx
-sphinx-autoapi
 git+https://github.com/yangliu2/mahjong.git
