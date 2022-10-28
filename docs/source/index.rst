@@ -14,4 +14,4 @@ way.
 .. toctree::
 
    installation
-   code
+   api
