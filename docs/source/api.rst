@@ -1,11 +1,10 @@
 Code
 ====
 
-.. automodule:: mahjong
+.. automodule:: mahjong.tile
     :members:
     :undoc-members:
     :show-inheritance:
-
 
 .. automodule:: mahjong.suit
     :members:
