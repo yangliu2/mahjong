@@ -59,4 +59,5 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 # setup auto api
+autoapi_type = 'python'
 autoapi_dirs = ['../mahjong']
